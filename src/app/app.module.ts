@@ -8,10 +8,14 @@ import { AppComponent } from './app.component';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiService } from './api.service';
+import { ChartComponent } from './chart/chart.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ChartComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

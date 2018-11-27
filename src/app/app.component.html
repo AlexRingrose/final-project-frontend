@@ -1,14 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<button (click)="myClick()">click me</button>
-<router-outlet></router-outlet>
-<div style="display: block;">
-    <canvas baseChart width="400" height="400"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-    </div>
+<div class="row">
+  <div class="col-xs-12">
+    <app-header></app-header>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 boxy">
+
+  </div>
+  <div class="col-xs-6 boxy">
+    <p>center</p>
+  </div>
+  <div class="col-lg-3 boxy">
+    <p>leftside</p>
+  </div>
+  <!-- <button (click)="myClick()">click me</button> -->
+  <router-outlet></router-outlet>
+  <!-- <app-chart></app-chart> -->
+</div>
