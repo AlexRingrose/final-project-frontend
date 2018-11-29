@@ -1,7 +1,9 @@
 import { Component} from '@angular/core';
-import { ChartComponent } from './chart/chart.component'
-import { HeaderComponent } from './header/header.component'
 import { ApiService } from './api.service';
+import { Router } from '@angular/router';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ import { ApiService } from './api.service';
 })
 export class AppComponent {
   title = 'frontend-project';
-  constructor(public _api:ApiService){
+  constructor(public _api:ApiService, private router:Router){
 
   }
 
