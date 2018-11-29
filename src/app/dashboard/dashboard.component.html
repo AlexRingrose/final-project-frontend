@@ -6,8 +6,8 @@
   </clr-header>
 
   <div class="content-container">
-    <main class="content-area">
-      <router-outlet></router-outlet>
+    <main [ngSwitch]="viewControl" class="content-area">
+      <app-home *ngSwitchDefault></app-home>
     </main>
 
     <nav class="sidenav" [clr-nav-level]="1">
