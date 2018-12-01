@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+
 
 @Component({
   selector: 'app-chart',
@@ -7,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChartComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _api:ApiService) { }
 
   ngOnInit() {
   }
+
+  myClick(){
+    this._api.searchStock("MSFT").subscribe(
+      (res) => {
+        console.log(res)
+      }
+    );
+  }
+
   // lineChart
     //
     public lineChartData:Array<any> = [

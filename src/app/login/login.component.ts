@@ -8,24 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  user = {username:"", password:""};
+  user = {email:"", password:""};
 
-  constructor(public _user:UserService, private router:Router) { }
+  constructor(public _userServ:UserService, private router:Router) { }
 
   onSubmit(){
-    console.log("submit fired",this.user)
-    return this._user.login(this.user).subscribe(res => {
+    console.log("submit ran",this.user)
+    return this._userServ.login(this.user).
+    subscribe((res:any) => {
       console.log(res);
       window.sessionStorage.setItem('token',res.token);
       window.sessionStorage.setItem('userId',res.userId);
-      this._user.userData = res.userData;
+      this._userServ.userData = res.userData;
       this.router.navigateByUrl('dashboard');
     })
-    // if(this.user.username === "test" && this.user.password === "test"){
-    //   console.log("logging in")
-    //   this.router.navigate(['dashboard'])
-    // }
-
   }
 
 }

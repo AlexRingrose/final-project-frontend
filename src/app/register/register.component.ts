@@ -13,7 +13,7 @@ export class RegisterComponent {
 
   onSubmit(){
     console.log("submit fired",this.user)
-    this._user.register(this.user).subscribe(res => {
+    this._user.register(this.user).subscribe( (res:any) => {
       console.log(res)
       window.sessionStorage.setItem('token', res.token);
       window.sessionStorage.setItem('userId', res.userId);

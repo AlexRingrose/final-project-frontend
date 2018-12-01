@@ -15,12 +15,4 @@ export class AppComponent {
   constructor(public _api:ApiService, private router:Router){
 
   }
-
-  myClick(){
-    this._api.searchStock("MSFT").subscribe(
-      (res) => {
-        console.log(res)
-      }
-    );
-  }
 }

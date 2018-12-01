@@ -15,10 +15,11 @@ export class UserService {
   }
 
   login(userData:any){
+    console.log("login ran",userData)
     return this.http.post(this.apiUrl +"/login", userData);
   }
 
-  logout(){
+  logOut(){
     window.sessionStorage.clear();
     this.router.navigateByUrl('');
   }
