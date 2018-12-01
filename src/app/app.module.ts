@@ -10,12 +10,14 @@ import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiService } from './api.service';
 import { routes } from './app.router';
+import { UserService } from './user.service';
 
 import { ChartComponent } from './chart/chart.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { LoginComponent } from './login/login.component';
     HeaderComponent,
     HomeComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,10 @@ import { LoginComponent } from './login/login.component';
     routes,
     FormsModule
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    UserService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

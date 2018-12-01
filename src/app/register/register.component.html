@@ -6,8 +6,11 @@
             <h5 class="hint">Use your Company ID to sign in or create one now</h5>
         </section>
         <div class="login-group">
-            <input [(ngModel)]="user.username" name="username" class="username" type="text" id="login_username" placeholder="Username">
-            <input [(ngModel)]="user.password" name="password" class="password" type="password" id="login_password" placeholder="Password">
+            <input [(ngModel)]="user.firstName" name="firstName" class="username" type="text" placeholder="First Name">
+            <input [(ngModel)]="user.lastName" name="lastName" class="username" type="text" placeholder="Last Name">
+            <input [(ngModel)]="user.email" name="email" class="username" type="text" placeholder="Email">
+            <input [(ngModel)]="user.password" name="password" class="password" type="password" placeholder="Password">
+
             <div class="checkbox">
                 <input type="checkbox" id="rememberme">
                 <label for="rememberme">
@@ -18,7 +21,7 @@
                 Invalid user name or password
             </div>
             <button type="submit" class="btn btn-primary" >NEXT</button>
-            <a href="register" class="signup">Sign up for a Company ID</a>
+            <a href="javascript://" class="signup">Sign up for a Company ID</a>
         </div>
     </form>
 </div>
