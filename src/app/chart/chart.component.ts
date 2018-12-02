@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
-  dataSet:Array;
+  dataSet:Array<any>;
   constructor(public _api:ApiService) { }
 
   ngOnInit() {
