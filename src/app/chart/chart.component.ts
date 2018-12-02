@@ -19,7 +19,7 @@ export class ChartComponent implements OnInit {
       (res) => {
         console.log("Api Response",res)
         console.log("time series",res["Time Series (5min)"])
-        console.log("data point",res["Time Series (5min)"][] )//["2018-11-30 16:00:00"])
+        console.log("data point",res["Time Series (5min)"]["2018-11-30 16:00:00"])
       }
     );
   }
