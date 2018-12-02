@@ -8,11 +8,11 @@ import { UserService } from '../user.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private _userServ:UserService) { }
+  constructor(private _userServ: UserService) { }
 
   ngOnInit() {}
 
-  logOut(){
-    this._userServ.logOut()
+  logOut() {
+    this._userServ.logOut();
   }
 }

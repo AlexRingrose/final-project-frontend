@@ -10,9 +10,9 @@ import { HeaderComponent } from '../header/header.component';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  viewControl
-  constructor(public _api:ApiService) {
-    this.viewControl = "home";
+  viewControl;
+  constructor(public _api: ApiService) {
+    this.viewControl = 'home';
   }
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
-import { ChartComponent } from '../chart/chart.component'
+import { ChartComponent } from '../chart/chart.component';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { ChartComponent } from '../chart/chart.component'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public _api:ApiService) { }
+  constructor(public _api: ApiService) { }
 
   ngOnInit() {
   }

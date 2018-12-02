@@ -8,17 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  user = {firstName:"",lastName:"",email:"",password:""}
-  constructor(public _user:UserService, private router:Router) { }
+  user = {firstName: '', lastName: '', email: '', password: ''};
+  constructor(public _user: UserService, private router: Router) { }
 
-  onSubmit(){
-    console.log("submit fired",this.user)
-    this._user.register(this.user).subscribe( (res:any) => {
-      console.log(res)
+  onSubmit() {
+    console.log('submit fired', this.user);
+    this._user.register(this.user).subscribe( (res: any) => {
+      console.log(res);
       window.sessionStorage.setItem('token', res.token);
       window.sessionStorage.setItem('userId', res.userId);
       this.router.navigateByUrl('dashboard');
-    })
+    });
   }
 
 }

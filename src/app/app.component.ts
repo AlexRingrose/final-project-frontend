@@ -12,7 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 })
 export class AppComponent {
   title = 'frontend-project';
-  constructor(public _api:ApiService, private router:Router){
+  constructor(public _api: ApiService, private router: Router) {
 
   }
 }
