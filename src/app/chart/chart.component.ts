@@ -8,11 +8,14 @@ import { ApiService } from '../api.service';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
-  dataSet: Array<any>;
-  public lineChartData: Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
-  ];
-  public lineChartLabels: Array<any> = ['11', '12', '1', '2', '3', '4', '5'];
+  dataSet = [{data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}];
+  labelSet = ['11', '', '1', '2', '3', '4', '5'];
+  public lineChartData: Array<any> = this.dataSet;
+
+  // public lineChartData: Array<any> = [
+  //   {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
+  // ];
+  public lineChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7'];
   public lineChartOptions: any = {
     responsive: true
   };
@@ -50,13 +53,31 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
   }
 
-  myClick() {
-    this._api.searchStock('MSFT', 'TIME_SERIES_INTRADAY').subscribe(
+  loadData() {
+    this._api.stockDaily('MSFT').subscribe(
       (res) => {
-        console.log('Api Response', res);
-        console.log('time series', res['Time Series (5min)']);
-        console.log('data point', res['Time Series (5min)']['2018-11-30 16:00:00']);
+        const dataAry = [];
+        // const labelAry = [];
+        // console.log('Api Response', res);
+        // console.log('time series', res['Time Series (Daily)']);
+
+        for (const data of Object.values(res['Time Series (Daily)'])) {
+          dataAry.push(data['4. close']);
+        }
+
+        // for (const data of Object.keys(res['Time Series (Daily)'])) {
+        //   labelAry.push(data);
+        // }
+
+        this.lineChartData = [{data: dataAry, label: 'foo'}];
+        // this.lineChartLabels = labelAry;
+        // console.log('dataAry log', dataAry);
+        // console.log('labelAry log', labelAry);
+
       }
     );
   }
 }
+
+// [ {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'} ];
+// ['11', '', '1', '2', '3', '4', '5'];

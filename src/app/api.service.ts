@@ -12,12 +12,17 @@ export class ApiService {
   constructor(public _http: HttpClient) {
     this.apiKey = 'O5PZCEDH04Z1PEWN';
     this.apiBasePath = 'https://www.alphavantage.co/query?';
-    this.apiInterval = '5min';
+    // this.apiInterval = '30min';
   }
 
-  searchStock(ticker, apiFunction) {
-    return this._http.get(this.apiBasePath + 'function=' + apiFunction +
-      '&symbol=' + ticker + '&interval=' + this.apiInterval + '&apikey=' +
-      this.apiKey + '&outputsize=compact');
+  stockDaily(ticker) {
+    return this._http.get(this.apiBasePath + 'function=TIME_SERIES_DAILY' +
+      '&symbol=' + ticker + '&interval=' + '&apikey=' + this.apiKey + '&outputsize=compact');
   }
+
+  // searchStock(ticker, apiFunction) {
+  //   return this._http.get(this.apiBasePath + 'function=' + apiFunction +
+  //     '&symbol=' + ticker + '&interval=' + this.apiInterval + '&apikey=' +
+  //     this.apiKey + '&outputsize=compact');
+  // }
 }
