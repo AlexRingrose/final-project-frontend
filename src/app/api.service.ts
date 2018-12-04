@@ -6,23 +6,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ApiService {
   apiKey;
+  demoPath;
   apiBasePath;
   apiFunction;
   apiInterval;
   constructor(public _http: HttpClient) {
     this.apiKey = 'O5PZCEDH04Z1PEWN';
+    this.demoPath = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo';
     this.apiBasePath = 'https://www.alphavantage.co/query?';
     // this.apiInterval = '30min';
   }
 
   stockDaily(ticker) {
-    return this._http.get(this.apiBasePath + 'function=TIME_SERIES_DAILY' +
-      '&symbol=' + ticker + '&interval=' + '&apikey=' + this.apiKey + '&outputsize=compact');
+    return this._http.get(this.demoPath);
   }
 
-  // searchStock(ticker, apiFunction) {
-  //   return this._http.get(this.apiBasePath + 'function=' + apiFunction +
-  //     '&symbol=' + ticker + '&interval=' + this.apiInterval + '&apikey=' +
-  //     this.apiKey + '&outputsize=compact');
+  // stockDaily(ticker) {
+  //   return this._http.get(this.apiBasePath + 'function=TIME_SERIES_DAILY' +
+  //     '&symbol=' + ticker + '&interval=' + '&apikey=' + this.apiKey2 + '&outputsize=compact');
   // }
+
 }

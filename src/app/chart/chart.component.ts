@@ -55,8 +55,9 @@ export class ChartComponent implements OnInit {
     this._api.stockDaily(ticker).subscribe(
       (res) => {
         const dataAry = [];
+
         // const labelAry = [];
-        // console.log('Api Response', res);
+        console.log('Api Response', res);
         // console.log('time series', res['Time Series (Daily)']);
 
         for (const data of Object.values(res['Time Series (Daily)'])) {
