@@ -1,4 +1,8 @@
-<button class="btn btn-primary" (click)="loadData('goog')">test call</button>
+<div class="btn-group">
+    <button class="btn"(click)="loadData('goog')">test call</button>
+    <button class="btn">*Add*</button>
+    <input clr-input [(ngModel)]="search" placeholder="Search"/>
+</div>
 <div style="display: block;">
   <canvas baseChart width="400" height="400"
     [datasets]="lineChartData"

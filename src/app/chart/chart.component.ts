@@ -44,6 +44,9 @@ export class ChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
 
+  private search;
+  private dataSet = [];
+
   constructor(public _api: ApiService) {}
 
   ngOnInit() {
@@ -64,8 +67,13 @@ export class ChartComponent implements OnInit {
           dataAry.push(data['4. close']);
         }
 
-        this.updateChart({data: dataAry, label: ticker});
-
+        if (this.dataSet.length <= 3 ) {
+          this.dataSet.push({data: dataAry, label: ticker});
+          this.lineChartData = this.dataSet;
+        }
+        // this.updateChart({data: dataAry, label: ticker});
+        // this.dataSet.push({data: dataAry, label: ticker});
+        // this.lineChartData = this.dataSet;
       }
     );
   }
