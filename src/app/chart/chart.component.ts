@@ -8,14 +8,10 @@ import { ApiService } from '../api.service';
   styleUrls: ['./chart.component.css']
 })
 export class ChartComponent implements OnInit {
-  dataSet = [{data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}];
-  labelSet = ['11', '', '1', '2', '3', '4', '5'];
-  public lineChartData: Array<any> = this.dataSet;
-
-  // public lineChartData: Array<any> = [
-  //   {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'}
-  // ];
-  public lineChartLabels: Array<any> = ['1', '2', '3', '4', '5', '6', '7'];
+  public lineChartData: Array<any> =
+      [{data: [50, 50, 50, 50, 50, 50, 50], label: 'Series A'}];
+  public lineChartLabels: Array<any> =
+      ['1', '2', '3', '4', '5', '6', '7'];
   public lineChartOptions: any = {
     responsive: true
   };
@@ -48,13 +44,15 @@ export class ChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
 
-  constructor(public _api: ApiService) { }
+  constructor(public _api: ApiService) {}
 
   ngOnInit() {
+    this.loadData('Msft');
   }
 
-  loadData() {
-    this._api.stockDaily('MSFT').subscribe(
+  loadData(lticker) {
+    const ticker = lticker.toUpperCase();
+    this._api.stockDaily(ticker).subscribe(
       (res) => {
         const dataAry = [];
         // const labelAry = [];
@@ -65,19 +63,18 @@ export class ChartComponent implements OnInit {
           dataAry.push(data['4. close']);
         }
 
-        // for (const data of Object.keys(res['Time Series (Daily)'])) {
-        //   labelAry.push(data);
-        // }
-
-        this.lineChartData = [{data: dataAry, label: 'foo'}];
-        // this.lineChartLabels = labelAry;
-        // console.log('dataAry log', dataAry);
-        // console.log('labelAry log', labelAry);
+        this.updateChart({data: dataAry, label: ticker});
 
       }
     );
   }
+  updateChart(set1, set2?, set3?) {
+    if (set3) {
+        this.lineChartData = [set1, set2, set3];
+    } else if (set2) {
+        this.lineChartData = [set1, set2];
+    } else {
+        this.lineChartData = [set1];
+    }
+  }
 }
-
-// [ {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'} ];
-// ['11', '', '1', '2', '3', '4', '5'];
