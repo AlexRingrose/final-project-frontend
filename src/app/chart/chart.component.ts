@@ -49,41 +49,16 @@ export class ChartComponent implements OnInit {
 
   constructor(public _api: ApiService) {}
 
-  ngOnInit() {
-    this.loadData('Msft');
-  }
 
-  loadData(lticker) {
-    const ticker = lticker.toUpperCase();
-    this._api.stockDaily(ticker).subscribe(
-      (res) => {
-        const dataAry = [];
 
-        // const labelAry = [];
-        console.log('Api Response', res);
-        // console.log('time series', res['Time Series (Daily)']);
-
-        for (const data of Object.values(res['Time Series (Daily)'])) {
-          dataAry.push(data['4. close']);
-        }
-
-        if (this.dataSet.length <= 3 ) {
-          this.dataSet.push({data: dataAry, label: ticker});
-          this.lineChartData = this.dataSet;
-        }
-        // this.updateChart({data: dataAry, label: ticker});
-        // this.dataSet.push({data: dataAry, label: ticker});
-        // this.lineChartData = this.dataSet;
-      }
-    );
-  }
-  updateChart(set1, set2?, set3?) {
-    if (set3) {
-        this.lineChartData = [set1, set2, set3];
-    } else if (set2) {
-        this.lineChartData = [set1, set2];
-    } else {
-        this.lineChartData = [set1];
+  updateChart(ticker) {
+    if ( this.dataSet.length <= 3 ) {
+      console.log('updateChart()');
+      this.dataSet.push( this._api.loadData( ticker ) );
+      this.lineChartData = this.dataSet;
     }
+  }
+  ngOnInit () {
+    this.updateChart( 'Msft' );
   }
 }
