@@ -46,13 +46,29 @@ export class ChartComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
 
-  private search;
+  private search = [ '', '', ''];
   private dataSet = [];
 
   constructor(public _api: ApiService) {}
 
-  loadData () {
-    const ticker = this.search ? this.search.toUpperCase() : 'MSFT';
+  validInput(input) {
+    if ( input.dirty && (input.length = 4)) {
+      return true;
+    }
+  }
+
+  updateChart () {
+    for (let i = 0; i < this.search.length; i++) {
+      if ( this.validInput(this.search[i].toUpperCase() )) {
+        this.dataSet[ i ] = this.getStockData( this.search[ i ] );
+      } else {
+        this.dataSet[ i ] = { data: [], label: '' };
+      }
+    }
+  }
+
+  getStockData(ticker) {
+    // const ticker = this.search1 ? this.search1.toUpperCase() : 'MSFT';
     this._api.stockDaily( ticker ).subscribe(
       ( res ) => {
         const dataAry = [];
@@ -63,15 +79,19 @@ export class ChartComponent implements OnInit {
           dataAry.push( data[ '4. close' ] );
         }
 
+        return { data: dataAry, label: ticker };
+
         // update this block to create empty graphs & add new
 
-        if ( this.dataSet.length < 3 ) {
-          this.dataSet.push( { data: dataAry, label: ticker } );
-          // this.lineChartData = this.dataSet;
-          this.lineChartData = [ { data: dataAry, label: ticker },
-            { data: [], label: '' },
-            { data: [], label: '' } ];
-        }
+
+        // if ( this.dataSet.length < 3 ) {
+        //   this.dataSet.push( { data: dataAry, label: ticker } );
+        //   // this.lineChartData = this.dataSet;
+        //   this.lineChartData = [ { data: dataAry, label: ticker },
+        //     { data: [], label: '' },
+        //     { data: [], label: '' } ];
+        // }
+
       }
     );
   }

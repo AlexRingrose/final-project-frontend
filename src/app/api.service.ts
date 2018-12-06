@@ -16,6 +16,23 @@ export class ApiService {
     this.apiBasePath = 'https://www.alphavantage.co/query?';
   }
 
+  apiDemo() {
+    return this._http.get( this.demoPath );
+  }
+
+  getDemoData() {
+    this.apiDemo().subscribe(
+      (res) => {
+        const dataAry = [];
+        for ( const data of Object.values( res[ 'Time Series (Daily)' ] ) ) {
+          dataAry.push( data[ '4. close' ] );
+        }
+
+        return { data: dataAry, label: 'MSFT' };
+      }
+    );
+  }
+
   stockDaily( ticker ) {
       // return this._http.get( this.demoPath );
       return this._http.get( this.apiBasePath + 'function=TIME_SERIES_DAILY' +
