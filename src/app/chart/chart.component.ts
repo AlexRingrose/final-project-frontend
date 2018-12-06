@@ -9,7 +9,9 @@ import { ApiService } from '../api.service';
 })
 export class ChartComponent implements OnInit {
   public lineChartData: Array<any> =
-      [{data: [50, 50, 50, 50, 50, 50, 50], label: 'Series A'}];
+      [{data: [], label: '' },
+      { data: [], label: '' },
+      { data: [], label: '' }];
   public lineChartLabels: Array<any> =
       ['1', '2', '3', '4', '5', '6', '7'];
   public lineChartOptions: any = {
@@ -49,16 +51,32 @@ export class ChartComponent implements OnInit {
 
   constructor(public _api: ApiService) {}
 
+  loadData () {
+    const ticker = this.search ? this.search.toUpperCase() : 'MSFT';
+    this._api.stockDaily( ticker ).subscribe(
+      ( res ) => {
+        const dataAry = [];
 
+        console.log( 'Api Response', res );
 
-  updateChart(ticker) {
-    if ( this.dataSet.length <= 3 ) {
-      console.log('updateChart()');
-      this.dataSet.push( this._api.loadData( ticker ) );
-      this.lineChartData = this.dataSet;
-    }
+        for ( const data of Object.values( res[ 'Time Series (Daily)' ] ) ) {
+          dataAry.push( data[ '4. close' ] );
+        }
+
+        // update this block to create empty graphs & add new
+
+        if ( this.dataSet.length < 3 ) {
+          this.dataSet.push( { data: dataAry, label: ticker } );
+          // this.lineChartData = this.dataSet;
+          this.lineChartData = [ { data: dataAry, label: ticker },
+            { data: [], label: '' },
+            { data: [], label: '' } ];
+        }
+      }
+    );
   }
+
   ngOnInit () {
-    this.updateChart( 'Msft' );
+    this.loadData();
   }
 }
