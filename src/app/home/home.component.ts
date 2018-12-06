@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import { ChartComponent } from '../chart/chart.component';
+import { UserService } from '../user.service';
 
 
 @Component({
@@ -9,12 +10,21 @@ import { ChartComponent } from '../chart/chart.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(public _api: ApiService) { }
+  favorite;
+  fav = {
+    name : 'aFav',
+  };
+  constructor(public _api: ApiService, public _user: UserService) { }
 
   ngOnInit() {
   }
 
-
+  onSave() {
+    this._user.saveFavorite( { name : this.favorite } ).subscribe(
+      (res: any) => {
+        console.log(res);
+      }
+    );
+  }
 
 }
