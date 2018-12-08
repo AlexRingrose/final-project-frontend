@@ -1,9 +1,7 @@
 <div class="btn-group">
-    <button class="btn"(click)="updateChart()">test call</button>
-    <button class="btn">*Add*</button>
+    <button class="btn"(click)="getStockData()">Search</button>
     <input clr-input [(ngModel)]="search[0]" placeholder="Search"/>
     <input clr-input [(ngModel)]="search[1]" placeholder="Search" />
-    <input clr-input [(ngModel)]="search[2]" placeholder="Search" />
 </div>
 <div style="display: block;">
   <canvas baseChart width="400" height="400"
