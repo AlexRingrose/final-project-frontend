@@ -52,7 +52,7 @@ export class ChartComponent implements OnInit {
   constructor(public _api: ApiService) {}
 
   validInput(input) {
-    if ( input.dirty && (input.length = 4)) {
+    if ( input !== '') {
       return true;
     }
   }
@@ -64,11 +64,11 @@ export class ChartComponent implements OnInit {
       } else {
         this.dataSet[ i ] = { data: [], label: '' };
       }
+      this.lineChartData[i] = this.dataSet [ i ];
     }
   }
 
   getStockData(ticker) {
-    // const ticker = this.search1 ? this.search1.toUpperCase() : 'MSFT';
     this._api.stockDaily( ticker ).subscribe(
       ( res ) => {
         const dataAry = [];
@@ -80,23 +80,18 @@ export class ChartComponent implements OnInit {
         }
 
         return { data: dataAry, label: ticker };
-
-        // update this block to create empty graphs & add new
-
-
-        // if ( this.dataSet.length < 3 ) {
-        //   this.dataSet.push( { data: dataAry, label: ticker } );
-        //   // this.lineChartData = this.dataSet;
-        //   this.lineChartData = [ { data: dataAry, label: ticker },
-        //     { data: [], label: '' },
-        //     { data: [], label: '' } ];
-        // }
-
       }
     );
   }
 
+  loadDummy() {
+    const dataAry = [ 104.8200, 109.1900, 108.5200, 112.0900,
+      110.8900, 110.1900, 111.1200 ];
+
+    this.lineChartData = [ { data: dataAry, label: 'MSFT' }];
+  }
+
   ngOnInit () {
-    this.loadData();
+    this.loadDummy();
   }
 }
