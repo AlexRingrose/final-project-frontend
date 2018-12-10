@@ -1,7 +1,15 @@
 <clr-main-container>
   <clr-header>
-    <div class="header-nav">
-      <app-header></app-header>
+    <div class="branding">
+        <span class="title">StockrIfyEd</span>
+    </div>
+    <div class="header-nav">    </div>
+    <div class="header-actions">
+      <div class="wrapLogout">
+        <button (click)='logOut()' type="button" class="logout btn btn-icon">
+          <clr-icon shape="logout"></clr-icon>
+        </button>
+      </div>
     </div>
   </clr-header>
 
