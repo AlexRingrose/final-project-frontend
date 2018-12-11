@@ -19,6 +19,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StockCompareComponent } from './stock-compare/stock-compare.component';
+import { ChartViewComponent } from './chart-view/chart-view.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { StockCompareComponent } from './stock-compare/stock-compare.component';
     DashboardComponent,
     LoginComponent,
     RegisterComponent,
-    StockCompareComponent
+    StockCompareComponent,
+    ChartViewComponent
   ],
   imports: [
     BrowserModule,
