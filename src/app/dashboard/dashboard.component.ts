@@ -17,8 +17,9 @@ export class DashboardComponent {
   constructor(public _api: ApiService, private _userServ: UserService, private router: Router) {
     this.viewControl = 'home';
   }
-  logOut () {
-    this._userServ.logOut();
-  }
+
+  switchView(view) { this.viewControl = view; }
+
+  logOut () { this._userServ.logOut(); }
 
 }
