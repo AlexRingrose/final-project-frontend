@@ -30,7 +30,32 @@ export class ChartViewComponent implements OnInit {
     }
   }
 
-  getStockData () {
+  getIntraDay () {
+    if ( this.validInput( this.search ) ) {
+      this._api.stockIntraDay( this.search, '30min' ).subscribe(
+        ( res ) => {
+          const dataAry = [];
+
+          console.log( 'Api Response', res );
+
+          for ( const data of Object.values( res[ 'Time Series (Daily)' ] ) ) {
+            dataAry.push( data[ '4. close' ] );
+          }
+
+          this.dataSet = {
+            data: dataAry
+          };
+
+          this._data.dataArray = [ this.dataSet ];
+          this._data.dataLength = dataAry.length;
+          console.log( this._data.dataArray );
+        }
+      );
+    }
+  }
+
+
+  getDaily () {
     if ( this.validInput( this.search ) ) {
       this._api.stockDaily( this.search ).subscribe(
         ( res ) => {
