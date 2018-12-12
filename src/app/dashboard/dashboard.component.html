@@ -1,9 +1,23 @@
 <clr-main-container>
   <clr-header>
     <div class="branding">
-        <span class="title">StockrIfyEd</span>
+      <button class="btn btn-link nav-link nav-btn"
+      (click)="switchView('home')">
+        <span class="title">Stockr-Ify-Ed</span>
+      </button>
     </div>
-    <div class="header-nav">    </div>
+    <div class="header-nav">
+      <button class="btn btn-link nav-link nav-btn" (click)="switchView('chart-view')">
+        <span class="nav-text">View Chart</span>
+      </button>
+      <button class="btn btn-link nav-link nav-btn"
+      (click)="switchView('stock-compare')">
+        <span class="nav-text">Compare Stocks</span>
+      </button>
+    <button class="btn btn-link nav-link nav-btn" (click)="switchView('stock-compare')">
+      <span class="nav-text">Favorites</span>
+    </button>
+    </div>
     <div class="header-actions">
       <div class="wrapLogout">
         <button (click)='logOut()' type="button" class="logout btn btn-icon">
@@ -16,6 +30,12 @@
   <div class="content-container">
     <main [ngSwitch]="viewControl" class="content-area">
       <app-home *ngSwitchDefault></app-home>
+      <app-home *ngSwitchCase = "'home'"></app-home>
+      <!-- <app-favorites *ngSwitchCase = "'favorites'"></app-favorites> -->
+      <!-- <app-stock-compare *ngSwitchCase = "'stock-compare'">
+      </app-stock-compare> -->
+      <app-chart-view *ngSwitchCase="'chart-view'">
+      </app-chart-view>
     </main>
 
     <nav class="sidenav" [clr-nav-level]="1">

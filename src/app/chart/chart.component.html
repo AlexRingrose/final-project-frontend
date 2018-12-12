@@ -1,17 +1,9 @@
-<div class="btn-group">
-    <button class="btn"(click)="getStockData()">Search</button>
-    <input clr-input [(ngModel)]="search[0]" placeholder="Search"/>
-    <input clr-input [(ngModel)]="search[1]" placeholder="Search" />
-</div>
-<div style="display: block;">
-  <canvas baseChart width="400" height="400"
+<div class='chart' style="display: block;">
+  <canvas baseChart width="750" height="400"
     [datasets]="lineChartData"
     [labels]="lineChartLabels"
     [options]="lineChartOptions"
     [colors]="lineChartColors"
-    [legend]="lineChartLegend"
-    [chartType]="lineChartType"
-    (chartHover)="chartHovered($event)"
-    (chartClick)="chartClicked($event)">
+    [chartType]="lineChartType">
   </canvas>
 </div>
