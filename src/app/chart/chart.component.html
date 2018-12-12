@@ -1,8 +1,3 @@
-<div class="btn-group">
-    <button class="btn"(click)="getStockData()">Search</button>
-    <input clr-input [(ngModel)]="search[0]" placeholder="Search"/>
-    <input clr-input [(ngModel)]="search[1]" placeholder="Search" />
-</div>
 <div class='chart' style="display: block;">
   <canvas baseChart width="500" height="500"
     [datasets]="lineChartData"

@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { StockCompareComponent } from './stock-compare/stock-compare.component';
 import { ChartViewComponent } from './chart-view/chart-view.component';
+import { ChartDataService } from './chart-data.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ChartViewComponent } from './chart-view/chart-view.component';
   providers: [
     ApiService,
     UserService,
+    ChartDataService,
   ],
   bootstrap: [AppComponent]
 })

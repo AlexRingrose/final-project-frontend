@@ -1,10 +1,13 @@
 <div class="row">
   <div class="clr-col">
-    <button (click)="createComponent()">Create</button>
-    <button (click)="componentRef.destroy()">Destory</button>
+    <div class="btn-group">
+      <button class="btn" (click)="getStockData()">Search</button>
+      <input clr-input [(ngModel)]="search" placeholder="Search" />
+    </div>
     <div #parent></div>
   </div>
   <div class="clr-col-md-3 boxy">
-    <p>leftside</p>
+    <button (click)="createComponent()">Create</button>
+    <button (click)="componentRef.destroy()">Destory</button>
   </div>
 </div>
