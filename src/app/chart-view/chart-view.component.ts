@@ -16,7 +16,8 @@ export class ChartViewComponent implements OnInit {
   @ViewChild('parent', {read: ViewContainerRef})
   parent: ViewContainerRef;
 
-  constructor ( public _api: ApiService, public _data: ChartDataService, private componentFactoryResolver: ComponentFactoryResolver ) { }
+  constructor ( public _api: ApiService, public _data: ChartDataService,
+    private componentFactoryResolver: ComponentFactoryResolver ) { }
 
   public createComponent (): void {
     const chartComponent = this.componentFactoryResolver.
@@ -34,96 +35,87 @@ export class ChartViewComponent implements OnInit {
     if ( this.validInput( this.search ) ) {
       this._api.stockIntraDay( this.search, '30min' ).subscribe(
         ( res ) => {
-          const dataAry = [];
+          let dataAry = [];
+          const labelAry = [];
           let timestampAry = [];
 
           console.log( 'Api Response', res );
 
           /*
-            if key (cut out date) is 'new' add to label array
-          */
+           Builds the Data Array and inital Label array
+           from entries of the response
+           */
+          for ( const [label, data] of Object.entries(
+              res[ 'Time Series (30min)' ] ) ) {
 
-          // for ( const label of Object.keys( res[ 'Time Series (30min)' ] ) ) {
-          //   timestampAry.push( label.substring(0, 10) );
-
-          //   if (temp !== currentLbl || currentLbl !== '' ) {
-          //     timestampAry.push( temp );
-          //     currentLbl = temp;
-          //   }
-          // }
-
-          let currentLbl = '';
-          for ( const [label, data] of Object.entries( res[ 'Time Series (30min)' ] ) ) {
-
-            // Building data array
             dataAry.push( parseFloat(data[ '4. close' ]).toFixed(2) );
+            timestampAry.push( label.substring(5, 10) );
+          }
 
-            /*
-              Building label array,
-              grabs date and assigns if is a 'new' date,
-              non-new dates are empty labels
-            */
-           
-            if ( currentLbl !== '') {
-              if ( label !== currentLbl) {
-                const tempLbl = label.substring(0, 10);
-                timestampAry.push( tempLbl );
-                currentLbl = tempLbl;
-              } else {
-                timestampAry.push( '' );
-              }
+          // Reverse Array to display earliest date first
+          timestampAry = timestampAry.reverse();
+
+          /*
+            Filtering label array,
+            grabs date and assigns if is a 'new' date,
+            non-new dates are empty labels
+          */
+          let currentLbl = '';
+          let countLbl = 1;
+          for ( const label of timestampAry) {
+            if ( currentLbl === '' ) {
+                labelAry.push( label );
+                currentLbl = label;
             } else {
-              const tempLbl = label.substring(0, 10);
-                timestampAry.push( tempLbl );
-                currentLbl = tempLbl;
+
+              if ( label !== currentLbl) {
+                if ( countLbl > 4) { break; }
+                labelAry.push( label );
+                currentLbl = label;
+                countLbl++;
+              } else {
+                labelAry.push( '' );
+              }
             }
           }
 
-          // for ( const data of Object.values( res[ 'Time Series (30min)' ] ) ) {
-          //   dataAry.push( parseFloat(data[ '4. close' ]).toFixed(2) );
-          // }
+          // clip data array to match labels and reverse
+          dataAry = dataAry.reverse().slice(0, labelAry.length);
 
-          timestampAry = timestampAry.reverse();
-
-          this.dataSet = {
-            data: dataAry.reverse()
-          };
-
-          console.log(timestampAry);
-          console.log(this.dataSet);
+          this.dataSet = { data: dataAry };
 
           this._data.dataArray = [ this.dataSet ];
+          this._data.labelArray = labelAry;
           this._data.dataLength = dataAry.length;
-          console.log( this._data.dataArray );
         }
       );
     }
   }
 
 
-  getDay () {
-    if ( this.validInput( this.search ) ) {
-      this._api.stockDaily( this.search ).subscribe(
-        ( res ) => {
-          const dataAry = [];
+  // getDay () {
+  //   if ( this.validInput( this.search ) ) {
+  //     this._api.stockDaily( this.search ).subscribe(
+  //       ( res ) => {
+  //         const dataAry = [];
 
-          console.log( 'Api Response', res );
+  //         console.log( 'Api Response', res );
 
-          for ( const data of Object.values( res[ 'Time Series (Daily)' ] ) ) {
-            dataAry.push( data[ '4. close' ] );
-          }
+  //         for ( const data of Object.values( res[ 'Time Series (Daily)' ] ) ) {
+  //           dataAry.push( data[ '4. close' ] );
+  //         }
 
-          this.dataSet = {
-            data: dataAry
-          };
+  //         this.dataSet = {
+  //           data: dataAry
+  //         };
 
-          this._data.dataArray = [this.dataSet];
-          this._data.dataLength = dataAry.length;
-          console.log(this._data.dataArray);
-        }
-      );
-    }
-  }
+  //         this._data.dataArray = [this.dataSet];
+  //         this._data.dataLength = dataAry.length;
+  //         console.log(this._data.dataArray);
+  //       }
+  //     );
+  //   }
+  // }
 
   ngOnInit() {
   }

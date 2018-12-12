@@ -9,20 +9,16 @@ import { ChartDataService } from '../chart-data.service';
 })
 export class ChartComponent implements OnInit {
   dataArray: Array<any>;
+  labelArray: Array<string>;
   dataLength;
 
   constructor(public _data: ChartDataService) {
     this.dataArray = this._data.dataArray;
-    this.dataLength = this._data.dataLength;
-    console.log('chart loaded', this.dataArray);
+    this.labelArray = this._data.labelArray;
+    console.log('chart loaded');
+    console.log(this.dataArray, this.labelArray);
   }
 
-  ngOnInit () {
-    this.lineChartData = this.dataArray;
-    for(let i=0; i < this.dataLength; i++){
-      this.lineChartLabels.push('');
-    }
-  }
 
   public lineChartData: Array<any> = [];
 
@@ -32,10 +28,22 @@ export class ChartComponent implements OnInit {
     legend: {
       display: false,
       labels: {
-        display: false,
+        display: true,
       }
+    },
+    elements: {
+      line: {
+          tension: 0, // disables bezier curves
+      }
+  },
+    scales: {
+      xAxes:  [{
+        ticks: {
+          autoSkip: false,
+        }
+      }]
     }
-  }
+  };
   public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -48,4 +56,14 @@ export class ChartComponent implements OnInit {
   ];
   public lineChartType = 'line';
 
+  ngOnInit () {
+    this.lineChartData = this.dataArray;
+    // for (let i = 0; i < this.dataLength; i++){
+    //   this.lineChartLabels.push('');
+    // }
+    console.log('ex lbl from labelArray: ', this.labelArray[0] );
+    for (let i = 0; i < this.labelArray.length; i++) {
+      this.lineChartLabels[i] = this.labelArray[i] ;
+    }
+  }
 }
