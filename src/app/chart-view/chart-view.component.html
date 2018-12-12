@@ -1,6 +1,8 @@
 <div class="row">
   <div class="clr-col">
-    <app-chart></app-chart>
+    <button (click)="createComponent()">Create</button>
+    <button (click)="componentRef.destroy()">Destory</button>
+    <div #parent></div>
   </div>
   <div class="clr-col-md-3 boxy">
     <p>leftside</p>

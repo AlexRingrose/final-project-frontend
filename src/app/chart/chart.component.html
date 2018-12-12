@@ -3,7 +3,7 @@
     <input clr-input [(ngModel)]="search[0]" placeholder="Search"/>
     <input clr-input [(ngModel)]="search[1]" placeholder="Search" />
 </div>
-<div class='chart' *ngIf='tickerClicked' style="display: block;">
+<div class='chart' style="display: block;">
   <canvas baseChart width="500" height="500"
     [datasets]="lineChartData"
     [labels]="lineChartLabels"
