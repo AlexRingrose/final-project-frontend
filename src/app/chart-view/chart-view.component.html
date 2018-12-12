@@ -1,13 +1,16 @@
+<button (click)="createComponent()">Create</button>
+<button (click)="componentRef.destroy()">Destory</button>
 <div class="row">
   <div class="clr-col">
     <div class="btn-group">
-      <button class="btn" (click)="getDaily()">Search</button>
+      <button class="btn" (click)="getDay()">Get Day</button>
+      <button class="btn" (click)="getPast5()">Get past 5</button>
+
       <input clr-input [(ngModel)]="search" placeholder="Search" />
     </div>
     <div #parent></div>
   </div>
   <div class="clr-col-md-3 boxy">
-    <button (click)="createComponent()">Create</button>
-    <button (click)="componentRef.destroy()">Destory</button>
+    
   </div>
 </div>

@@ -30,21 +30,67 @@ export class ChartViewComponent implements OnInit {
     }
   }
 
-  getIntraDay () {
+  getPast5 () {
     if ( this.validInput( this.search ) ) {
       this._api.stockIntraDay( this.search, '30min' ).subscribe(
         ( res ) => {
           const dataAry = [];
+          let timestampAry = [];
 
           console.log( 'Api Response', res );
 
-          for ( const data of Object.values( res[ 'Time Series (Daily)' ] ) ) {
-            dataAry.push( data[ '4. close' ] );
+          /*
+            if key (cut out date) is 'new' add to label array
+          */
+
+          // for ( const label of Object.keys( res[ 'Time Series (30min)' ] ) ) {
+          //   timestampAry.push( label.substring(0, 10) );
+
+          //   if (temp !== currentLbl || currentLbl !== '' ) {
+          //     timestampAry.push( temp );
+          //     currentLbl = temp;
+          //   }
+          // }
+
+          let currentLbl = '';
+          for ( const [label, data] of Object.entries( res[ 'Time Series (30min)' ] ) ) {
+
+            // Building data array
+            dataAry.push( parseFloat(data[ '4. close' ]).toFixed(2) );
+
+            /*
+              Building label array,
+              grabs date and assigns if is a 'new' date,
+              non-new dates are empty labels
+            */
+           
+            if ( currentLbl !== '') {
+              if ( label !== currentLbl) {
+                const tempLbl = label.substring(0, 10);
+                timestampAry.push( tempLbl );
+                currentLbl = tempLbl;
+              } else {
+                timestampAry.push( '' );
+              }
+            } else {
+              const tempLbl = label.substring(0, 10);
+                timestampAry.push( tempLbl );
+                currentLbl = tempLbl;
+            }
           }
 
+          // for ( const data of Object.values( res[ 'Time Series (30min)' ] ) ) {
+          //   dataAry.push( parseFloat(data[ '4. close' ]).toFixed(2) );
+          // }
+
+          timestampAry = timestampAry.reverse();
+
           this.dataSet = {
-            data: dataAry
+            data: dataAry.reverse()
           };
+
+          console.log(timestampAry);
+          console.log(this.dataSet);
 
           this._data.dataArray = [ this.dataSet ];
           this._data.dataLength = dataAry.length;
@@ -55,7 +101,7 @@ export class ChartViewComponent implements OnInit {
   }
 
 
-  getDaily () {
+  getDay () {
     if ( this.validInput( this.search ) ) {
       this._api.stockDaily( this.search ).subscribe(
         ( res ) => {
