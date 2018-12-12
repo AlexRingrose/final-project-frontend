@@ -43,6 +43,9 @@ import { ChartViewComponent } from './chart-view/chart-view.component';
     routes,
     FormsModule
   ],
+  entryComponents: [
+    ChartComponent,
+  ],
   providers: [
     ApiService,
     UserService,

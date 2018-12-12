@@ -3,7 +3,7 @@
     <div class="branding">
       <button class="btn btn-link nav-link nav-btn"
       (click)="switchView('home')">
-        <span class="title">StockrIfyEd</span>
+        <span class="title">Stockr-Ify-Ed</span>
       </button>
     </div>
     <div class="header-nav">
@@ -32,8 +32,8 @@
       <app-home *ngSwitchDefault></app-home>
       <app-home *ngSwitchCase = "'home'"></app-home>
       <!-- <app-favorites *ngSwitchCase = "'favorites'"></app-favorites> -->
-      <app-stock-compare *ngSwitchCase = "'stock-compare'">
-      </app-stock-compare>
+      <!-- <app-stock-compare *ngSwitchCase = "'stock-compare'">
+      </app-stock-compare> -->
       <app-chart-view *ngSwitchCase="'chart-view'">
       </app-chart-view>
     </main>
