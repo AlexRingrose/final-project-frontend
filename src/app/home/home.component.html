@@ -2,12 +2,13 @@
   <div class="col-sm-12 col-xs-12">
     <div class="card">
       <div class="card-block">
-        <div class="card-title">
-          <form class="search">
-            <label for="search_input">
-              <input id="search_input" type="text" placeholder="Search a Ticker...">
-            </label>
-          </form>
+        <div class="card-title searchbar">
+          <button (click)='search()' class="btn btn-icon">
+            <clr-icon shape="search"></clr-icon>
+          </button>
+          <label for="search_input">
+            <input [(ngModel)]="_api.search" id="search_input" type="text" placeholder="Search a Ticker...">
+          </label>
         </div>
       </div>
     </div>
@@ -18,10 +19,12 @@
     <div class="card">
       <div class="card-block">
         <div class="card-title">
-          Block
+          Favorite Stocks
         </div>
         <div class="card-text">
-          blah
+
+          <div *ngFor="let fav of favorites">{{fav}}</div>
+
         </div>
       </div>
     </div>
