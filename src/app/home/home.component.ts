@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   search () { this._api.viewControl = 'chart-view'; }
 
   getFavorites () {
+    console.log( 'GetFavorites post' )
     this._user.getFavorite().subscribe(
       ( res: any ) => {
         const tempFav = res;
