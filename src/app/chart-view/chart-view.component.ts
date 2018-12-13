@@ -113,6 +113,7 @@ export class ChartViewComponent implements OnInit {
   }
 
 
+
   // getDay () {
   //   if ( this.validInput( this.search ) ) {
   //     this._api.stockDaily( this.search ).subscribe(
