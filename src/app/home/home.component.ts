@@ -4,27 +4,31 @@ import { ChartComponent } from '../chart/chart.component';
 import { UserService } from '../user.service';
 
 
-@Component({
+@Component( {
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
-})
+  styleUrls: [ './home.component.css' ]
+} )
 export class HomeComponent implements OnInit {
-  favorite;
-  fav = {
-    name : 'aFav',
-  };
-  constructor(public _api: ApiService, public _user: UserService) { }
+  favorites: Array<string> = [];
+  constructor ( public _api: ApiService, public _user: UserService ) { }
 
-  ngOnInit() {
+  ngOnInit () {
+    this.getFavorites();
   }
 
-  onSave() {
-    this._user.saveFavorite( { name : this.favorite } ).subscribe(
-      (res: any) => {
-        console.log(res);
+  search () { this._api.viewControl = 'chart-view'; }
+
+  getFavorites () {
+    this._user.getFavorite().subscribe(
+      ( res: any ) => {
+        const tempFav = res;
+        for ( let fav of tempFav ) {
+          this.favorites.push( fav.name );
+        }
+        console.log( res );
       }
-    );
+    )
   }
 
 }
