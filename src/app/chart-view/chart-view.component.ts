@@ -2,38 +2,40 @@ import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolve
 import { ApiService } from '../api.service';
 import { ChartComponent } from '../chart/chart.component';
 import { ChartDataService } from '../chart-data.service';
+import { UserService } from '../user.service';
 
-@Component({
+@Component( {
   selector: 'app-chart-view',
   templateUrl: './chart-view.component.html',
-  styleUrls: ['./chart-view.component.css']
-})
+  styleUrls: [ './chart-view.component.css' ]
+} )
 
 export class ChartViewComponent implements OnInit {
   componentRef;
   dataSet;
-  search;
-  @ViewChild('parent', {read: ViewContainerRef})
+  @ViewChild( 'parent', { read: ViewContainerRef } )
   parent: ViewContainerRef;
 
-  constructor ( public _api: ApiService, public _data: ChartDataService,
+  constructor ( public _api: ApiService, public _user: UserService, public _data: ChartDataService,
     private componentFactoryResolver: ComponentFactoryResolver ) { }
 
   public createComponent (): void {
     const chartComponent = this.componentFactoryResolver.
-        resolveComponentFactory( ChartComponent );
+      resolveComponentFactory( ChartComponent );
     this.componentRef = this.parent.createComponent( chartComponent );
   }
 
   validInput ( input ) {
-    if ( input !== '' && input.length > 3 ) {
-      return true;
+    if ( input !== '' ) {
+      if ( input.length > 3 ) {
+        return true;
+      }
     }
   }
 
   getPast5 () {
-    if ( this.validInput( this.search ) ) {
-      this._api.stockIntraDay( this.search, '30min' ).subscribe(
+    if ( this.validInput( this._api.search ) ) {
+      this._api.stockIntraDay( this._api.search, '30min' ).subscribe(
         ( res ) => {
           let dataAry = [];
           const labelAry = [];
@@ -45,11 +47,11 @@ export class ChartViewComponent implements OnInit {
            Builds the Data Array and inital Label array
            from entries of the response
            */
-          for ( const [label, data] of Object.entries(
-              res[ 'Time Series (30min)' ] ) ) {
+          for ( const [ label, data ] of Object.entries(
+            res[ 'Time Series (30min)' ] ) ) {
 
-            dataAry.push( parseFloat(data[ '4. close' ]).toFixed(2) );
-            timestampAry.push( label.substring(5, 10) );
+            dataAry.push( parseFloat( data[ '4. close' ] ).toFixed( 2 ) );
+            timestampAry.push( label.substring( 5, 10 ) );
           }
 
           // Reverse Array to display earliest date first
@@ -62,14 +64,14 @@ export class ChartViewComponent implements OnInit {
           */
           let currentLbl = '';
           let countLbl = 1;
-          for ( const label of timestampAry) {
+          for ( const label of timestampAry ) {
             if ( currentLbl === '' ) {
-                labelAry.push( label );
-                currentLbl = label;
+              labelAry.push( label );
+              currentLbl = label;
             } else {
 
-              if ( label !== currentLbl) {
-                if ( countLbl > 4) { break; }
+              if ( label !== currentLbl ) {
+                if ( countLbl > 4 ) { break; }
                 labelAry.push( label );
                 currentLbl = label;
                 countLbl++;
@@ -80,17 +82,36 @@ export class ChartViewComponent implements OnInit {
           }
 
           // clip data array to match labels and reverse
-          dataAry = dataAry.reverse().slice(0, labelAry.length);
+          dataAry = dataAry.reverse().slice( 0, labelAry.length );
 
           this.dataSet = { data: dataAry };
 
           this._data.dataArray = [ this.dataSet ];
           this._data.labelArray = labelAry;
           this._data.dataLength = dataAry.length;
+
+          // Create new chart component,
+          // if one already exists then destory it
+          if ( this.componentRef ) {
+            this.componentRef.destroy();
+          }
+          this.createComponent();
         }
       );
     }
   }
+
+  saveFavorite () {
+    if ( this.validInput( this._api.search ) ) {
+      const fav = this._api.search.toUpperCase();
+      this._user.saveFavorite( { name: fav } ).subscribe(
+        ( res: any ) => {
+          console.log( res );
+        }
+      );
+    }
+  }
+
 
 
   // getDay () {
@@ -117,7 +138,8 @@ export class ChartViewComponent implements OnInit {
   //   }
   // }
 
-  ngOnInit() {
+  ngOnInit () {
+    this.getPast5();
   }
 
 }

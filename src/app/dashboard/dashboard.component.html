@@ -1,22 +1,20 @@
 <clr-main-container>
   <clr-header>
     <div class="branding">
-      <button class="btn btn-link nav-link nav-btn"
-      (click)="switchView('home')">
+      <button class="btn btn-link nav-link nav-btn" (click)="switchView('home')">
         <span class="title">Stockr-Ify-Ed</span>
       </button>
     </div>
     <div class="header-nav">
-      <button class="btn btn-link nav-link nav-btn" (click)="switchView('chart-view')">
+      <!-- <button class="btn btn-link nav-link nav-btn" (click)="switchView('chart-view')">
         <span class="nav-text">View Chart</span>
       </button>
-      <button class="btn btn-link nav-link nav-btn"
-      (click)="switchView('stock-compare')">
+      <button class="btn btn-link nav-link nav-btn" (click)="switchView('stock-compare')">
         <span class="nav-text">Compare Stocks</span>
       </button>
-    <button class="btn btn-link nav-link nav-btn" (click)="switchView('stock-compare')">
-      <span class="nav-text">Favorites</span>
-    </button>
+      <button class="btn btn-link nav-link nav-btn" (click)="switchView('stock-compare')">
+        <span class="nav-text">Favorites</span>
+      </button> -->
     </div>
     <div class="header-actions">
       <div class="wrapLogout">
@@ -28,9 +26,9 @@
   </clr-header>
 
   <div class="content-container">
-    <main [ngSwitch]="viewControl" class="content-area">
+    <main [ngSwitch]="_api.viewControl" class="content-area">
       <app-home *ngSwitchDefault></app-home>
-      <app-home *ngSwitchCase = "'home'"></app-home>
+      <app-home *ngSwitchCase="'home'"></app-home>
       <!-- <app-favorites *ngSwitchCase = "'favorites'"></app-favorites> -->
       <!-- <app-stock-compare *ngSwitchCase = "'stock-compare'">
       </app-stock-compare> -->
@@ -38,16 +36,16 @@
       </app-chart-view>
     </main>
 
-    <nav class="sidenav" [clr-nav-level]="1">
+    <!-- <nav class="sidenav" [clr-nav-level]="1">
       <section class="sidenav-content">
         <a href="dashboard" class="nav-link active">
-            Dashboard
+          Dashboard
         </a>
         <a href="" class="nav-link">
-            Nav Element 2
+          Nav Element 2
         </a>
       </section>
-    </nav>
+    </nav> -->
   </div>
 
 </clr-main-container>

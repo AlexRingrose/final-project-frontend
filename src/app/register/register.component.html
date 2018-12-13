@@ -1,27 +1,20 @@
 <div class="login-wrapper">
-    <form #myForm="ngForm" (ngSubmit)="onSubmit()" class="login">
-        <section class="title">
-            <h3 class="welcome">Welcome to</h3>
-            Company Product Name
-            <h5 class="hint">Use your Company ID to sign in or create one now</h5>
-        </section>
-        <div class="login-group">
-            <input [(ngModel)]="user.firstName" name="firstName" class="username" type="text" placeholder="First Name">
-            <input [(ngModel)]="user.lastName" name="lastName" class="username" type="text" placeholder="Last Name">
-            <input [(ngModel)]="user.email" name="email" class="username" type="text" placeholder="Email">
-            <input [(ngModel)]="user.password" name="password" class="password" type="password" placeholder="Password">
-
-            <div class="checkbox">
-                <input type="checkbox" id="rememberme">
-                <label for="rememberme">
-                    Remember me
-                </label>
-            </div>
-            <div class="error active">
-                Invalid user name or password
-            </div>
-            <button type="submit" class="btn btn-primary" >NEXT</button>
-            <a href="javascript://" class="signup">Sign up for a Company ID</a>
-        </div>
-    </form>
+  <div class="">
+    <div class="login">
+      <section class="title">
+        <h3 class="welcome">Welcome to</h3>
+        Stockr-Ify-Ed
+        <h5 class="hint">Register here</h5>
+      </section>
+      <div class="login-group">
+        <input [(ngModel)]="user.firstName" name="firstName" class="username" type="text" placeholder="First Name">
+        <input [(ngModel)]="user.lastName" name="lastName" class="username" type="text" placeholder="Last Name">
+        <input [(ngModel)]="user.email" name="email" class="username" type="text" placeholder="Email">
+        <input [(ngModel)]="user.password" name="password" class="password" type="password" placeholder="Password">
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary">
+          REGISTER
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

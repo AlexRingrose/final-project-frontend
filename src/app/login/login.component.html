@@ -1,17 +1,18 @@
 <div class="login-wrapper">
-    <div class="">
+  <div class="">
 
-    <div  class="login">
-        <section class="title">
-            <h3 class="welcome">Welcome to</h3>
-            Company Product Name
-            <h5 class="hint">Sign in or Register now</h5>
-        </section>
-        <div class="login-group">
-            <input [(ngModel)]="user.email" name="email" class="email" type="text" id="login_username" placeholder="Email">
-            <input [(ngModel)]="user.password" name="password" class="password" type="password" id="login_password" placeholder="Password">
-            <button (click)="onSubmit()" type="submit" class="btn btn-primary" >SIGN IN</button>
-            <a href="register" class="signup">Register as a new user</a>
-        </div>
+    <div class="login">
+      <section class="title">
+        <h3 class="welcome">Welcome to</h3>
+        Stockr-Ify-Ed
+        <h5 class="hint">Sign in or Register now</h5>
+      </section>
+      <div class="login-group">
+        <input [(ngModel)]="user.email" name="email" class="email" type="text" id="login_username" placeholder="Email">
+        <input [(ngModel)]="user.password" name="password" class="password" type="password" id="login_password"
+          placeholder="Password">
+        <button (click)="onSubmit()" type="submit" class="btn btn-primary">SIGN IN</button>
+        <a href="register" class="signup">Register as a new user</a>
+      </div>
     </div>
-</div>
+  </div>
