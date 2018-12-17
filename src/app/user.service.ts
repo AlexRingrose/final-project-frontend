@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 } )
 export class UserService {
-  apiUrl = 'http://meanstack-2018-5-alex-phortonssf.c9users.io:8080/api/AppUsers';
-  favUrl = 'http://meanstack-2018-5-alex-phortonssf.c9users.io:8080/api/favorites/';
+  apiUrl = 'http://localhost:3000/api/AppUsers';
+  // apiUrl = 'http://meanstack-2018-5-alex-phortonssf.c9users.io:8080/api/AppUsers';
+  // favUrl = 'http://meanstack-2018-5-alex-phortonssf.c9users.io:8080/api/favorites/';
 
   userData: any;
   constructor ( private http: HttpClient, private router: Router ) { }
@@ -31,10 +32,14 @@ export class UserService {
   }
 
   saveFavorite ( favorite ) {
+    this.token = window.sessionStorage.getItem( 'token' );
+    this.userId = window.sessionStorage.getItem( 'userId' )
     return this.http.post( this.apiUrl + '/' + this.userId + '/favorites?access_token=' + this.token, favorite );
   }
 
   getFavorite () {
+    this.token = window.sessionStorage.getItem( 'token' );
+    this.userId = window.sessionStorage.getItem( 'userId' )
     return this.http.get( this.apiUrl + '/' + this.userId + '/favorites?access_token=' + this.token );
   }
 }
